@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>病院予約システム</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <h1>○○病院</h1>
+        <p class="subtitle">オンライン予約システム</p>
+    </div>
+
+
+        <!-- ページ1: 診療科選択 -->
+        <div id="page1" class="page active">
+            <h2>診療科を選択</h2>
+            <div class="department-grid" id="departmentGrid"></div>
+            <button class="button" onclick="showPage(2)">次へ進む</button>
+        </div>
+
+        <!-- ページ2: 日時選択 -->
+        <div id="page2" class="page">
+            <h2>日時を選択</h2>
+            <input type="date" id="appointment-date" min="">
+            <div class="time-slots" id="timeSlots"></div>
+            <button class="button secondary" onclick="showPage(1)">戻る</button>
+            <button class="button" onclick="showPage(3)">次へ進む</button>
+        </div>
+
+        <!-- ページ3: 確認 -->
+        <div id="page3" class="page">
+            <h2>予約内容の確認</h2>
+            <div id="confirmationDetails"></div>
+            <button class="button secondary" onclick="showPage(2)">戻る</button>
+            <button class="button" onclick="completeReservation()">予約確定</button>
+        </div>
+
+        <!-- ページ4: 完了 -->
+        <div id="page4" class="page">
+            <h2> 予約完了</h2>
+            <div id="completionDetails"></div>
+            <button class="button" onclick="showPage(1)">新しい予約</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
