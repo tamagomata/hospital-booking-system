@@ -31,21 +31,58 @@ body {
     border-radius: 5px;
     cursor: pointer;
     margin: 10px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #004499;
 }
 
 .button.secondary {
     background-color: #6c757d;
 }
 
+.button.secondary:hover {
+    background-color: #545b62;
+}
+
 .page {
     display: none;
-    text-align: center;
 }
 
 .active {
     display: block;
 }
 
+/* ステップインジケーターの改良 */
+.step-indicator {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+    gap: 10px;
+}
+
+.step {
+    padding: 10px 20px;
+    background-color: #e9ecef;
+    border-radius: 20px;
+    color: #666;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.step.active {
+    background-color: #0066cc;
+    color: white;
+}
+
+.step.completed {
+    background-color: #28a745;
+    color: white;
+}
+
+/* 診療科グリッド */
 .department-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -58,6 +95,13 @@ body {
     border: 2px solid #e0e0e0;
     border-radius: 8px;
     cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.department-card:hover {
+    border-color: #0066cc;
+    background-color: #f8fbff;
 }
 
 .department-card.selected {
@@ -65,6 +109,45 @@ body {
     background-color: #e6f2ff;
 }
 
+/* 医師選択コンテナ（新規追加） */
+.doctors-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin: 30px 0;
+}
+
+.doctor-card {
+    padding: 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: left;
+}
+
+.doctor-card:hover {
+    border-color: #0066cc;
+    background-color: #f8fbff;
+}
+
+.doctor-card.selected {
+    border-color: #0066cc;
+    background-color: #e6f2ff;
+}
+
+.doctor-info h3 {
+    margin: 0 0 8px 0;
+    color: #333;
+}
+
+.doctor-info p {
+    margin: 4px 0;
+    color: #666;
+    font-size: 14px;
+}
+
+/* 時間スロット */
 .time-slots {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -73,31 +156,188 @@ body {
 }
 
 .time-slot {
-    padding: 10px;
+    padding: 12px 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
     cursor: pointer;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.time-slot:hover {
+    border-color: #0066cc;
+    background-color: #f8fbff;
 }
 
 .time-slot.selected {
     background-color: #0066cc;
     color: white;
+    border-color: #0066cc;
 }
 
-.step-indicator {
+/* フォームグループ（新規追加） */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #0066cc;
+    box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1);
+}
+
+.form-group textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+/* 患者フォーム（新規追加） */
+.patient-form {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+/* ボタングループ（新規追加） */
+.button-group {
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* 確認カード（新規追加） */
+.confirmation-card {
+    background-color: #f8f9fa;
+    padding: 25px;
+    border-radius: 8px;
+    border-left: 4px solid #0066cc;
+    text-align: left;
+    margin: 20px 0;
+}
+
+.confirmation-section {
+    margin-bottom: 20px;
+}
+
+.confirmation-section h3 {
+    margin: 0 0 15px 0;
+    color: #333;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 8px;
+}
+
+.confirmation-detail {
+    margin: 8px 0;
     display: flex;
-    justify-content: center;
-    margin: 30px 0;
 }
 
-.step {
-    padding: 10px 20px;
-    margin: 0 10px;
-    background-color: #e9ecef;
-    border-radius: 20px;
+.confirmation-detail strong {
+    min-width: 120px;
+    color: #666;
 }
 
-.step.active {
-    background-color: #0066cc;
-    color: white;
+/* 完了メッセージ（新規追加） */
+.completion-message {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.success-icon {
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+
+.completion-details {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    text-align: left;
+}
+
+.instructions {
+    background-color: #fff3cd;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    text-align: left;
+    border-left: 4px solid #ffc107;
+}
+
+.instructions h3 {
+    margin: 0 0 15px 0;
+    color: #856404;
+}
+
+.instructions ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.instructions li {
+    margin: 8px 0;
+    color: #856404;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+        margin: 10px;
+    }
+    
+    .department-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .time-slots {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .step-indicator {
+        flex-wrap: wrap;
+    }
+    
+    .step {
+        margin: 5px;
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .time-slots {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .button {
+        padding: 10px 20px;
+        margin: 5px;
+        width: 100%;
+    }
+    
+    .button-group {
+        display: flex;
+        flex-direction: column;
+    }
 }
