@@ -5,7 +5,7 @@
 - **フロントエンド:** HTML, CSS, JavaScript
 - **バックエンド:** Node.js
 - **データベース:** MongoDB
-- **開発ツール:** Visual Studio Code, Git, GitHub
+- **開発ツール？:** Visual Studio Code, Git, GitHub
 
 ## 今後やりたいこと
 - 使用言語はもうちょっとよさそうなものに変える。
