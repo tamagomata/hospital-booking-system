@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>病院予約システム</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <h1>○○病院</h1>
+        <p class="subtitle">オンライン予約システム</p>
+        <div id="authStatus" style="text-align: right; margin-top: 10px;">
+            <!-- ログイン状態がここに表示されます -->
+        </div>
+    </div>
+
+    <!-- ステップインジケーター追加 -->
+    <div class="step-indicator">
+        <div class="step active" id="indicator1">1. 診療科</div>
+        <div class="step" id="indicator2">2. 医師</div>
+        <div class="step" id="indicator3">3. 日時</div>
+        <div class="step" id="indicator4">4. 確認</div>
+        <div class="step" id="indicator5">5. 完了</div>
+    </div>
+
+    <div class="container">
+        <!-- ページ1: 診療科選択 -->
+        <div id="page1" class="page active">
+            <h2>診療科を選択</h2>
+            <p>ご希望の診療科をお選びください</p>
+            <div class="department-grid" id="departmentGrid">
+                <!-- JavaScriptで動的に生成 -->
+            </div>
+            <div class="button-group">
+                <button class="button" onclick="validateAndProceed(2)">次へ進む</button>
+                <button class="button secondary" onclick="showPage(7)" style="margin-left: 10px;">ログイン</button>
+            </div>
+        </div>
+
+        <!-- ページ2: 医師選択 -->
+        <div id="page2" class="page">
+            <h2>医師を選択</h2>
+            <p>担当医師をお選びください</p>
+            <div class="doctors-container" id="doctorsContainer">
+                <!-- JavaScriptで動的に生成 -->
+            </div>
+            <div class="button-group">
+                <button class="button secondary" onclick="showPage(1)">戻る</button>
+                <button class="button" onclick="validateAndProceed(3)">次へ進む</button>
+            </div>
+        </div>
+
+        <!-- ページ3: 日時選択 -->
+        <div id="page3" class="page">
+            <h2>日時を選択</h2>
+            <div class="form-group">
+                <label for="appointment-date">希望日を選択</label>
+                <input type="date" id="appointment-date" min="">
+            </div>
+            <div class="form-group">
+                <label>希望時間</label>
+                <div class="time-slots" id="timeSlots">
+                    <!-- JavaScriptで動的に生成 -->
+                </div>
+            </div>
+            <div class="button-group">
+                <button class="button secondary" onclick="showPage(2)">戻る</button>
+                <button class="button" onclick="validateAndProceed(4)">次へ進む</button>
+            </div>
+        </div>
+
+        <!-- ページ4: 患者情報入力 -->
+        <div id="page4" class="page">
+            <h2>患者情報の入力</h2>
+            <div class="patient-form">
+                <div class="form-group">
+                    <label for="patient-name">お名前（必須）</label>
+                    <input type="text" id="patient-name" placeholder="山田 太郎">
+                </div>
+                <div class="form-group">
+                    <label for="patient-kana">ふりがな</label>
+                    <input type="text" id="patient-kana" placeholder="やまだ たろう">
+                </div>
+                <div class="form-group">
+                    <label for="patient-tel">電話番号（必須）</label>
+                    <input type="tel" id="patient-tel" placeholder="090-1234-5678">
+                </div>
+                <div class="form-group">
+                    <label for="patient-email">メールアドレス</label>
+                    <input type="email" id="patient-email" placeholder="example@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="patient-memo">症状やご要望</label>
+                    <textarea id="patient-memo" placeholder="発熱、頭痛など"></textarea>
+                </div>
+            </div>
+            <div class="button-group">
+                <button class="button secondary" onclick="showPage(3)">戻る</button>
+                <button class="button" onclick="validateAndProceed(5)">確認へ進む</button>
+            </div>
+        </div>
+
+        <!-- ページ5: 確認 -->
+        <div id="page5" class="page">
+            <h2>予約内容の確認</h2>
+            <div class="confirmation-card" id="confirmationDetails">
+                <!-- JavaScriptで動的に生成 -->
+            </div>
+            <div class="button-group">
+                <button class="button secondary" onclick="showPage(4)">戻る</button>
+                <button class="button" onclick="completeReservation()">予約を確定する</button>
+            </div>
+        </div>
+
+        <!-- ページ6: 完了 -->
+        <div id="page6" class="page">
+            <div class="completion-message">
+                <div class="success-icon">✅</div>
+                <h2>予約が完了しました</h2>
+                <div class="completion-details" id="completionDetails">
+                    <!-- JavaScriptで動的に生成 -->
+                </div>
+                <div class="instructions">
+                    <h3>ご来院時の注意事項</h3>
+                    <ul>
+                        <li>予約時間の5分前までに受付をお済ませください</li>
+                        <li>健康保険証をご持参ください</li>
+                        <li>初診の方は問診票の記入が必要です</li>
+                        <li>キャンセルの場合は前日までにご連絡ください</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="button-group">
+                <button class="button" onclick="showPage(1)">新しい予約をする</button>
+                <button class="button secondary" onclick="showPage(9)" style="margin-left: 10px;">マイページ</button>
+            </div>
+        </div>
+
+        <!-- ページ7: ログイン（新規追加） -->
+        <div id="page7" class="page">
+            <div class="container">
+                <h2>ログイン</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <input type="email" id="loginEmail" placeholder="メールアドレス" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="loginPassword" placeholder="パスワード" required>
+                    </div>
+                    <button type="submit" class="button">ログイン</button>
+                </form>
+                <p style="text-align: center; margin-top: 20px;">
+                    アカウントをお持ちでない方は
+                    <a href="#" onclick="showPage(8)" style="color: #2c5aa0;">こちらから登録</a>
+                </p>
+                <p style="text-align: center; margin-top: 10px;">
+                    <a href="#" onclick="showPage(1)" style="color: #666;">ゲストで予約を続ける</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- ページ8: ユーザー登録（新規追加） -->
+        <div id="page8" class="page">
+            <div class="container">
+                <h2>ユーザー登録</h2>
+                <form id="registerForm">
+                    <div class="form-group">
+                        <input type="text" id="registerName" placeholder="お名前" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="registerEmail" placeholder="メールアドレス" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="registerPassword" placeholder="パスワード（6文字以上）" minlength="6" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="registerTel" placeholder="電話番号">
+                    </div>
+                    <button type="submit" class="button">登録</button>
+                </form>
+                <p style="text-align: center; margin-top: 20px;">
+                    既にアカウントをお持ちの方は
+                    <a href="#" onclick="showPage(7)" style="color: #2c5aa0;">こちらからログイン</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- ページ9: マイページ（新規追加） -->
+        <div id="page9" class="page">
+            <div class="container">
+                <h2>マイページ</h2>
+                <div id="userProfile">
+                    <!-- ユーザー情報がここに表示されます -->
+                </div>
+                <div style="margin-top: 30px;">
+                    <button onclick="showUserReservations()" class="button secondary">予約履歴を見る</button>
+                    <button onclick="logout()" class="button outline" style="margin-left: 10px;">ログアウト</button>
+                    <button onclick="showPage(1)" class="button" style="margin-left: 10px;">新規予約</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

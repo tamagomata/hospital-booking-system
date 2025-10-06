@@ -1,0 +1,3 @@
+cd C:\Users\User\Desktop\病院予約サイト　作り直しver\backend
+
+npm run dev
