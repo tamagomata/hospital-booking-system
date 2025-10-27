@@ -2,10 +2,12 @@
 
 ## 使用技術
 
-- **フロントエンド:** HTML, CSS, JavaScript
-- **バックエンド:** Node.js
-- **データベース:** MongoDB
-- **開発ツール？:** Visual Studio Code, Git, GitHub
+- **フロントエンド:** HTML5 + CSS3 + Vanilla JS
+- **バックエンド:**   Node.js + Express.js
+- **データベース:**  MongoDB
+- **開発ツール:**    VS Code, Git, GitHub
+- **デプロイ:**      Netlify (フロント), まだ！ (バック)
+
 
 ## 今後やりたいこと
 - 使用言語はもうちょっとよさそうなものに変える。
